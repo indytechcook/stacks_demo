@@ -1,0 +1,4 @@
+name = BW Stacks
+description = Base Classes for stacks implementation
+core = 7.x
+package = BW

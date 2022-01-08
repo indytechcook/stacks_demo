@@ -1,0 +1,16 @@
+{
+  "name": "indytechcook/stacks",
+  "description": "Stacks of Content",
+  "minimum-stability": "stable",
+  "authors": [
+    {
+      "name": "Neil Hastings",
+      "email": "neil.hastings@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Stacks\\": "src/"
+    }
+  }
+}

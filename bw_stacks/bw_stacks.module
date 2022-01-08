@@ -1,0 +1,110 @@
+<?php
+
+use BWD\Stacks\Result\Loader\ResultLoaderProvider;
+use BWStacks\StacksConfig;
+
+/**
+ * Implements hook_boot().
+ */
+function bw_stacks_boot() {
+  // Register the factories
+  $result_loader_provider = new ResultLoaderProvider();
+  $result_loader_provider->addResultFactory(StacksConfig::NODE_RESULT_TYPE, new \BWStacks\Result\Loader\NodeFactory());
+  $result_loader_provider->addResultFactory(StacksConfig::TERM_RESULT_TYPE, new \BWStacks\Result\Loader\TaxonomyFactory());
+  $result_loader_provider->addResultFactory(StacksConfig::USER_RESULT_TYPE, new \BWStacks\Result\Loader\UserFactory());
+
+  // Add aliases
+  $result_loader_provider->addAlias('job', StacksConfig::NODE_RESULT_TYPE);
+  $result_loader_provider->addAlias('article', StacksConfig::NODE_RESULT_TYPE);
+  $result_loader_provider->addAlias('user', StacksConfig::USER_RESULT_TYPE);
+
+
+  StacksConfig::setResultLoaderProvider($result_loader_provider);
+}
+
+/**
+ * Implements hook_menu().
+ */
+function bw_stacks_menu() {
+  $items = [];
+
+  $items['admin/reports/stacks-user'] = [
+    'title' => 'New Stack City',
+    'page callback' => 'bw_stacks_admin_user_page_callback',
+    'access arguments' => ['access site reports'],
+    'type' => MENU_NORMAL_ITEM,
+    'file' => 'inc/report.inc',
+  ];
+
+  $items['admin/reports/stacks-user'] = [
+    'title' => 'New Stack City',
+    'page callback' => 'bw_stacks_admin_user_page_callback',
+    'access arguments' => ['access site reports'],
+    'type' => MENU_NORMAL_ITEM,
+    'file' => 'inc/report.inc',
+  ];
+
+  return $items;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function bw_stacks_theme($existing, $type, $theme, $path) {
+  $path_item = drupal_get_path('module', 'bw_stacks') . '/views';
+
+  $items = [];
+
+  $items['bw_stacks_user_report_row'] = [
+    'path' => $path_item,
+    'template' => 'bw-stacks-user-report-row',
+    'variables' => [
+      'id' => NULL,
+      'content' => NULL,
+      'result' => NULL,
+      'stats' => NULL,
+    ],
+  ];
+
+  $items['bw_stacks_user_report_title'] = [
+    'path' => $path_item,
+    'template' => 'bw-stacks-user-report-title',
+  ];
+
+  $items['bw_stacks_user_report_data'] = [
+    'path' => $path_item,
+    'template' => 'bw-stacks-user-report-data',
+    'variables' => [
+      'logentries_link' => NULL,
+      'business_logic' => NULL,
+      'filtered_by' => NULL,
+    ],
+  ];
+
+  $items['bw_stacks_user_report_single_value'] = [
+    'path' => $path_item,
+    'template' => 'bw-stacks-user-report-single-value',
+    'variables' => [
+      'value' => NULL,
+    ],
+  ];
+
+  $items['bw_stacks_user_report_list'] = [
+    'path' => $path_item,
+    'template' => 'bw-stacks-user-report-list',
+    'variables' => [
+      'list' => NULL,
+      'list_class' => NULL,
+    ],
+  ];
+
+  $items['bw_stacks_user_report_dp_phrases'] = [
+    'path' => $path_item,
+    'template' => 'bw-stacks-user-report-dp-phrases',
+    'variables' => [
+      'phrases' => NULL,
+    ],
+  ];
+
+  return $items;
+}

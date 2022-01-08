@@ -1,0 +1,10 @@
+ul.horizontal-list {
+    overflow: hidden;
+    width: 100%;
+}
+
+ul.horizontal-list li {
+    display: inline-block;
+    list-style: none;
+    width: 70px;
+}
